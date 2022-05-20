@@ -8,7 +8,7 @@ else D='unknown'
 printf "\n\x1b[32m● Distribution identification:\x1b[0m $D ~ $(env |awk -F= '/CURRENT_D/ {print $2}')\n"
 printf '\n\x1b[32m● Debian / Ubuntu repositories:\x1b[0m\n\n'
 
-grep -Phrs '^d.*(debian|ubuntu)' /etc/apt/{,sources.list.d/}*.list
+grep -Phrs '^d.*(debian|ubuntu|cherrytree)' /etc/apt/{,sources.list.d/}*.list
 
 printf '\n\x1b[32m● Cherrytree dependencies:\x1b[0m\n\n'
 
