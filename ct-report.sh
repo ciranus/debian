@@ -1,5 +1,13 @@
 #!/bin/bash
 
+[[ -f /usr/bin/apt ]] || (printf 'Sorry, you are at the wrong place\nMaybe next time\nBye\n' ; exit)
+# no need to run as root + not recommended
+if [[ $USER = root ]] ; then 
+    printf 'No need to run this script as root. You can, but not recommended\nAre you sure you want to continue ? [y/n]\n'
+    read A
+    [[ $A = y ]] && echo "Ok, let's go" || exit
+fi
+
   if [[ -f /etc/lsb-release ]]   ; then D=$(awk -F= '/DESC/ {print $2}' /etc/lsb-release)
 elif [[ -f /etc/debian_version ]]; then D=$(cat /etc/debian_version)
 else D='unknown'
