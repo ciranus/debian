@@ -15,7 +15,7 @@ else D=$(apt-cache policy apt |grep -o '[^ ]*main' |cut -d '/' -f1)
 printf "\n\x1b[32m● Distribution identification:\x1b[0m $D ~ $(env |awk -F= '/CURRENT_D/ {print $2}')\n"
 printf '\n\x1b[32m● Debian / Ubuntu repositories:\x1b[0m\n\n'
 
-grep -Phrs '^d.*(debian|ubuntu|giuspen)' /etc/apt/{,sources.list.d/}*.list |grep -v 'security\|updates'
+grep -Phrs '^d.*((debian|ubuntu).*main|giuspen)' /etc/apt/{,sources.list.d/}*.list |grep -v 'security\|updates'
 
 printf '\n\x1b[32m● Cherrytree dependencies:\x1b[0m\n\n'
 
