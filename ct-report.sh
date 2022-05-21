@@ -19,7 +19,7 @@ grep -Phrs '^d.*((debian|ubuntu).*main|giuspen)' /etc/apt/{,sources.list.d/}*.li
 
 printf '\n\x1b[32m● Cherrytree dependencies:\x1b[0m\n\n'
 
-dpkg -l |awk '$2~/cherryt|gcc-1.-base|lib(c6|glib2.0-0|gcc-s1|stdc|fmt|spd|atkm|curl4|gspell-1-.:|gtksourceviewmm|sqlite3|rsvg2-c|uchardet0|xml\+)/&&/^i/&&!/-dev/{sub(":a[^ ]*","");printf"%-27s %s\n",$2,$3}'
+dpkg -l |awk '$2~/cherryt|lib(c6|glib2.0-0|gcc-s1|stdc|fmt|spd|atkm|curl4|gspell-1-.:|gtksourceviewmm|sqlite3|rsvg2-c|uchardet0|xml\+)/&&/^i/&&!/-dev/{sub(":a[^ ]*","");printf"%-27s %s\n",$2,$3}'
 dpkg -l cherrytree |grep -q '^i' || (printf '\nlibfmt compatibility check -> '; apt-cache policy libfmt{7,8} |sed -n '1{s/://;p}')
 
 exit
