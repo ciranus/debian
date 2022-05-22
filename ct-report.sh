@@ -5,14 +5,9 @@
 # no need to run as root + not recommended
 [[ $USER = root ]] && printf '\x1b[35mNo need to run this script as root. You can, but not recommended\nBut ok...\x1b[0m\n'
 
-  if [[ -f /etc/lsb-release ]]   ; then D=$(awk -F= '/DESC/ {print $2}' /etc/lsb-release)
-elif [[ -f /etc/debian_version ]]; then D=$(cat /etc/debian_version)
-else D=$(apt-cache policy apt |grep -o '[^ ]*main' |cut -d '/' -f1)
-  fi
+D=$(sed -n '/PRETTY/{s/^.*=//;s/GNU.Linux //;p}' /etc/os-release)
 
-[[ -z $D ]] && D='???'
-
-printf "\n\x1b[32m● Distribution identification:\x1b[0m $D ~ $(env |awk -F= '/CURRENT_D/ {print $2}')\n"
+printf "\n\x1b[32m● Distribution Id:\x1b[0m $D ~ $(env |awk -F= '/CURRENT_D/ {print $2}')\n"
 printf '\n\x1b[32m● Debian / Ubuntu repositories:\x1b[0m\n\n'
 
 grep -Phrs '^d.*((debian|ubuntu).*main|giuspen)' /etc/apt/{,sources.list.d/}*.list |grep -v 'security\|updates'
