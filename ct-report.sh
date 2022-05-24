@@ -22,7 +22,7 @@ echo
 if [[ $USER = root ]]; then printf "${M} >>> current user is root -> EXIT <<<${R}\n" ;exit ;fi
 CONF="/home/$USER/.config/cherrytree/config.cfg"
 printf "${Y}doc %-8s%-8s%-8s $R \n" size type images
-for i in {0..5} ; do
+for i in {0..6} ; do
   F=$(sed -n "/doc_${i}/{s/^.*=//;p}" $CONF)
   [[ ! -f $F ]] && break
   ST=$(ls -sh --format=single-colum $F |sed 's/\/.*ctb/sqlite/;s/\/.*ctd/xml/;s/\/.*ctz/7-zip/')
@@ -30,7 +30,7 @@ for i in {0..5} ; do
     if [[ "$Ftype" = ctb ]] ; then
     [[ -f /usr/bin/strings ]] && P=$(strings $F |grep  'type="image/\|src="data\|encoded_' |wc -l) || P='<binutils package needed>'
   elif [[ "$Ftype" = ctd ]] ; then P=$(grep  'type="image\|src="data\|encoded_/' $F |wc -l)
-  elif [[ "$Ftype" = ctz ]] ; then P='<protected>'
+  elif [[ "$Ftype" = ct[xz] ]] ; then P='<protected>'
     fi
   printf " %-3s%-8s%-8s $P\n" $i $ST
 done
