@@ -6,10 +6,10 @@
 [[ $USER = root ]] && printf '\x1b[35mNo need to run this script as root. You can, but not recommended\nBut ok...\x1b[0m\n'
 
 printf "\n\x1b[32m● Distribution Id:\x1b[0m $(sed -n '/PRETTY/{s/^.*=//;s/GNU.Linux //;p}' /etc/os-release) ~ $(env |awk -F= '/CURRENT_D/ {print $2}')\n"
-printf '\n\x1b[32m● Debian / Ubuntu repositories:\x1b[0m\n\n'
+printf '\n\x1b[32m● Debian / Ubuntu repositories:\x1b[0m\n'
 
 grep -Phrs '^d.*((debian|ubuntu).*main|giuspen)' /etc/apt/{,sources.list.d/}*.list |grep -v 'security\|updates'
-
+echo '---'
 if dpkg -l cherrytree |grep -q '^i' ; then dpkg -l cherrytree | sed -n '/cherry/{s/ii //;s/amd64.*/ : installed/;p}'
 else printf '\ncompatibility check -> '; apt-cache policy libfmt{7,8} |sed -n '1{s/://;p}' ;echo
 fi
