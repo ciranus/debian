@@ -24,8 +24,8 @@ Ftype=$(echo $F |cut -d. -f2)
   if [[ "$Ftype" = ctb ]] ; then P=$(strings $F |grep  'type=.image/' |wc -l)
 elif [[ "$Ftype" = ctd ]] ; then P=$(grep  'type="image/' $F |wc -l)
   fi
-[[ "$Ftype" != ctz ]] && printf "\x1b[33mNumber of images:\x1b[0m  $P\n\n"
+[[ "$Ftype" != ctz ]] && printf "\x1b[33mNumber of images:\x1b[0m  $P\n"
 
-printf '\n\x1b[33mConfig:\x1b[0m\n' ; grep 'backup' ~/.config/cherrytree/config.cfg
+printf '\x1b[33mConfig:\x1b[0m\n' ; grep 'backup' ~/.config/cherrytree/config.cfg
 echo
 exit
