@@ -18,7 +18,7 @@ printf "\n\x1b[32m● Cherrytree dependencies status:\x1b[0m [$(date +%Y-%m-%d)]
 
 dpkg -l |awk '$2~/lib(c6|glib2.0-0|gcc-s1|stdc|fmt|spd|atkm|curl4|gspell-1-.:|gtksourceviewmm|sqlite3|rsvg2-c|uchardet0|xml\+)/&&/^i/&&!/-dev/{sub(":a[^ ]*","");printf"%-27s %s\n",$2,$3}'
 echo
-printf '\x1b[33mDocument size/type:\x1b[0m  ';ls -shS --format=single-colum $(awk -F = '/doc_0/ {print $2}' ~/.config/cherrytree/config.cfg) | sed 's/\/.*ctb/sqlite/;s/\/.*ctd/xml/'
+printf '\x1b[33mDocument size/type:\x1b[0m  ';ls -shS --format=single-colum $(awk -F = '/doc_0/ {print $2}' ~/.config/cherrytree/config.cfg) | sed 's/\/.*ctb/sqlite/;s/\/.*ctd/xml/;s/\/.*ctz/7-zip/'
 printf '\n\x1b[33mConfig:\x1b[0m\n'
 grep 'backup' ~/.config/cherrytree/config.cfg
 echo
