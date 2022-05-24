@@ -25,7 +25,7 @@ printf "${Y}doc %-8s%-8s%-8s $R \n" size type images
 for i in {0..6} ; do
   F=$(sed -n "/doc_${i}/{s/^.*=//;p}" $CONF)
   [[ ! -f $F ]] && break
-  ST=$(ls -sh --format=single-colum $F |sed 's/\/.*ctb/sqlite/;s/\/.*ctd/xml/;s/\/.*ctz/7-zip/')
+  ST=$(ls -sh --format=single-colum $F |sed 's/\/.*ctb/sqlite/;s/\/.*ctd/xml/;s/\/.*ctx/Sql-7z/;s/\/.*ctz/xml-7z/')
   Ftype=$(echo $F |cut -d. -f2)
     if [[ "$Ftype" = ctb ]] ; then
     [[ -f /usr/bin/strings ]] && P=$(strings $F |grep  'type="image/\|src="data\|encoded_' |wc -l) || P='<binutils package needed>'
