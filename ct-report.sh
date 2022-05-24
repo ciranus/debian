@@ -35,7 +35,7 @@ for i in {0..6} ; do
   printf " %-3s%-8s%-8s $P\n" $i $ST
 done
 
-printf "\n${Y}Config:${R}\n" ; grep 'backup' $CONF
+printf "\n${Y}Config:${R}\n" ; grep 'autosave\|backup' $CONF
 [[ -d $(awk -F= '/^custom_backup_dir/ {print $2}' $CONF) ]] || printf "$M >> backup dir does not exist << $R "
 echo
 
