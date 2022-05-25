@@ -14,6 +14,7 @@ echo '---'
 if dpkg -l cherrytree |grep -q '^i' ; then dpkg -l cherrytree | sed -n '/cherry/{s/ii //;s/amd64.*/ : installed/;p}'
 else printf '\ncompatibility check -> '; apt-cache policy libfmt{7,8} |sed -n '1{s/://;p}'
 fi
+[[ -h /usr/bin/cherrytree ]] && readlink /usr/bin/cherrytree && /usr/bin/cherrytree --version
 echo '---'
 printf "${G}● Cherrytree dependencies status:${R} [$(date +%Y-%m-%d)]\n\n"
 
@@ -28,8 +29,8 @@ for i in {0..6} ; do
   ST=$(ls -sh --format=single-colum $F |sed 's/\/.*ctb/sqlite/;s/\/.*ctd/xml/;s/\/.*ctx/sql-7z/;s/\/.*ctz/xml-7z/')
   Ftype=$(echo $F |cut -d. -f2)
     if [[ "$Ftype" = ctb ]] ; then
-    [[ -f /usr/bin/strings ]] && P=$(strings $F |grep  'type="image/\|src="data\|encoded_' |wc -l) || P='<binutils package needed>'
-  elif [[ "$Ftype" = ctd ]] ; then P=$(grep  'type="image\|src="data\|encoded_/' $F |wc -l)
+    [[ -f /usr/bin/strings ]] && P=$(strings $F |grep 'type="image/\|src="data\|encoded_' |wc -l) || P='<binutils package needed>'
+  elif [[ "$Ftype" = ctd ]] ; then P=$(grep 'type="image\|src="data\|encoded_/' $F |wc -l)
   elif [[ "$Ftype" = ct[xz] ]] ; then P='<protected>'
     fi
   printf " %-3s%-8s%-8s $P\n" $i $ST
