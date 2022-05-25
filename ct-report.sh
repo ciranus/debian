@@ -25,7 +25,7 @@ printf "${Y}doc %-8s%-8s%-8s $R \n" size type images
 for i in {0..6} ; do
   F=$(sed -n "/doc_${i}/{s/^.*=//;p}" $CONF)
   [[ ! -f $F ]] && break
-  ST=$(ls -sh --format=single-colum $F |sed 's/\/.*ctb/sqlite/;s/\/.*ctd/xml/;s/\/.*ctx/Sql-7z/;s/\/.*ctz/xml-7z/')
+  ST=$(ls -sh --format=single-colum $F |sed 's/\/.*ctb/sqlite/;s/\/.*ctd/xml/;s/\/.*ctx/sql-7z/;s/\/.*ctz/xml-7z/')
   Ftype=$(echo $F |cut -d. -f2)
     if [[ "$Ftype" = ctb ]] ; then
     [[ -f /usr/bin/strings ]] && P=$(strings $F |grep  'type="image/\|src="data\|encoded_' |wc -l) || P='<binutils package needed>'
@@ -36,7 +36,8 @@ for i in {0..6} ; do
 done
 
 printf "\n${Y}Config:${R}\n" ; grep 'autosave\|backup' $CONF
-[[ -d $(awk -F= '/^custom_backup_dir/ {print $2}' $CONF) ]] || printf "$M >> backup dir does not exist << $R "
+CD=$(sed -n '/^custom_backup_dir/{s/^.*=//;p}' $CONF)
+[[ -n $CD ]] && [[ ! -d $CD ]]  && printf "$M >> custom backup dir does not exist << $R \n"
 echo
 
 exit
