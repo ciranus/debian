@@ -16,17 +16,17 @@ else printf '\ncompatibility check -> '; apt-cache policy libfmt{7,8} |sed -n '1
 fi
 [[ -h /usr/bin/cherrytree ]] && readlink /usr/bin/cherrytree && /usr/bin/cherrytree --version
 echo '---'
-printf "${G}● Cherrytree dependencies status:${R} [$(date +%Y-%m-%d)]\n\n"
+printf "${G}● Key CT dependencies status:${R} [$(date +%Y-%m-%d)]\n\n"
 
-dpkg -l |awk '$2~/lib(c6|glib2.0-0|gcc-s1|stdc|fmt|spd|atkm|curl4|gspell-1-.:|gtksourceviewmm|sqlite3|rsvg2-c|uchardet0|xml\+)/&&/^i/&&!/-dev/{sub(":a[^ ]*","");printf" %-27s %s\n",$2,$3}'
-echo
+dpkg -l |awk '$2~/lib(atkm|c6|fmt|gcc-s1|glib2.0-0|stdc)/&&/^i/&&!/-dev/{sub(":a[^ ]*","");printf" %-27s %s\n",$2,$3}'
+echo '- - - - - - - - - - - - - - - - - - - -'
 if [[ $USER = root ]]; then printf "${M} >>> current user is root -> EXIT <<<${R}\n" ;exit ;fi
 CONF="/home/$USER/.config/cherrytree/config.cfg"
 printf "${Y}doc %-8s%-8s%-8s $R \n" size type images
 for i in {0..6} ; do
   F=$(sed -n "/doc_${i}/{s/^.*=//;p}" $CONF)
   [[ ! -f $F ]] && break
-  ST=$(ls -sh --format=single-colum $F |sed 's/\/.*ctb/sqlite/;s/\/.*ctd/xml/;s/\/.*ctx/sql-7z/;s/\/.*ctz/xml-7z/')
+  ST=$(ls -sh --format=single-colum $F |sed 's~/.*\.~~;s~ctb~sqlite~;s~ctd~xml~;s~ctx~sql-7z~;s~ctz~xml-7z~')
   Ftype=$(echo $F |cut -d. -f2)
     if [[ "$Ftype" = ctb ]] ; then
     [[ -f /usr/bin/strings ]] && P=$(strings $F |grep 'type="image/\|src="data\|encoded_' |wc -l) || P='<binutils package needed>'
@@ -38,7 +38,7 @@ done
 
 printf "\n${Y}Config:${R}\n" ; grep 'autosave\|backup' $CONF
 CD=$(sed -n '/^custom_backup_dir/{s/^.*=//;p}' $CONF)
-[[ -n $CD ]] && [[ ! -d $CD ]]  && printf "$M >> custom backup dir does not exist << $R \n"
+[[ -n $CD ]] && [[ ! -d $CD ]] && printf "$M >> custom backup dir does not exist << $R \n"
 echo
 
 exit
